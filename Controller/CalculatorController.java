@@ -26,10 +26,14 @@ public class CalculatorController {
 
     public void calculate(){
         try {
-            model.equals();
+            model.calculate();
         }catch (Exception e){
             frame.displayError(e);
         }
+    }
+
+    public void delete(){
+
     }
 
     public void addOperation(Operation op){

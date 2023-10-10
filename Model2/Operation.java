@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Operation implements Expression{
 
     private final String symbol; // a symbol representing the operation eg * for multiplication
-    private ArrayList<Expression> arguments;
+    private final ArrayList<Expression> arguments;
 
     protected final int numNeededArgs; // the number of parameters necessary to complete the operation
 
@@ -34,9 +34,9 @@ public class Operation implements Expression{
         if (arguments.isEmpty()){
             return symbol;
         }
-        symbolString = arguments.get(0).getSymbol().concat(symbol);
+        symbolString = this.getArgumentSymbol(arguments.get(0)).concat(symbol);
         for (int i = 1; i < arguments.size(); i ++){
-            symbolString = symbolString.concat(arguments.get(i).getSymbol());
+            symbolString = symbolString.concat(this.getArgumentSymbol(arguments.get(i)));
         }
         return symbolString;
     }
@@ -47,8 +47,18 @@ public class Operation implements Expression{
         return new Value(val);
     }
 
-    protected Double evaluateFunction(ArrayList<Double> arr){
+    protected Double evaluateFunction(ArrayList<Double> ignoredArr){
         return 0.0;
+    }
+    /*
+    * returns _ if an argument is null
+    * otherwise returns argument's symbol
+    * */
+    private String getArgumentSymbol(Expression e){
+        if (e == null){
+            return "_";
+        }
+        return e.getSymbol();
     }
 
     /*

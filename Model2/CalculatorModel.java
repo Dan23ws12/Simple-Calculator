@@ -29,11 +29,14 @@ public class CalculatorModel {
         argLn = 0;
     }
 
-    public void equals(){
+    public void calculate() throws InvalidExpressionException {
         if ((currExpression == null) && !arg.isEmpty()){
             currExpression = new Value(Double.parseDouble(arg));
             this.resetNumberArgument();
+        }else if (currExpression != null){
+            currExpression = currExpression.evaluate();
         }
+        frame.setOutput(currExpression, arg);
     }
 
     public void addDecimal(){
@@ -77,7 +80,9 @@ public class CalculatorModel {
             this.resetNumberArgument();
         }
         else if (currExpression.isLeaf()){
-            currExpression = new Value(currExpression.getValue() + Double.parseDouble(arg));
+            if (!arg.isEmpty()){
+                currExpression = new Value(currExpression.getValue() + Double.parseDouble(arg));
+            }
             op.addArgument(currExpression);
             this.resetNumberArgument();
         }

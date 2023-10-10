@@ -12,7 +12,7 @@ import java.awt.*;
 * */
 public class CalculatorFrame extends JFrame {
     private final OutputTextField output;
-    private CalculatorController controller;
+    private final CalculatorController controller;
     public CalculatorFrame(CalculatorController controller){
         this.controller = controller;
         output = new OutputTextField();
@@ -43,20 +43,24 @@ public class CalculatorFrame extends JFrame {
     * */
     private void setupValueButtonPanel(){
         JPanel valueButtonPanel = new JPanel();
-        valueButtonPanel.setBounds(120, 140, 230,240);
-        valueButtonPanel.setLayout(new GridLayout(4, 4, 10, 10));
-        OperatorButton[] opButtons = new OperatorButton[4];
-        opButtons[0] = new OperatorButton(new Multiplication(), controller);
-        opButtons[1] = new OperatorButton(new Addition(), controller);
-        opButtons[2] = new OperatorButton(new Subtraction(), controller);
-        opButtons[3] = new OperatorButton(new Division(), controller);
-        for (int i = 0; i <= 3; i ++){
-            for (int j = i + 1; j < i + 4; j ++){
-                valueButtonPanel.add(new NumberButton((j % 10), controller));
+        valueButtonPanel.setBounds(120, 120, 220,240);
+        valueButtonPanel.setLayout(new GridLayout(5, 4, 10, 10));
+        OperationButton[] opButtons = new OperationButton[4];
+        opButtons[0] = new OperationButton(new Multiplication(), controller);
+        opButtons[1] = new OperationButton(new Addition(), controller);
+        opButtons[2] = new OperationButton(new Subtraction(), controller);
+        opButtons[3] = new OperationButton(new Division(), controller);
+        for (int i = 0; i < 3; i ++){
+            for (int j = i*3 + 1; j < i*3 + 4; j ++){
+                valueButtonPanel.add(new NumberButton(j, controller));
             }
             valueButtonPanel.add(opButtons[i]);
         }
         valueButtonPanel.setBackground(Color.DARK_GRAY);
+        valueButtonPanel.add(new SpecialButton(SpecialFunction.DECIMAL, controller));
+        valueButtonPanel.add(new NumberButton(0, controller));
+        valueButtonPanel.add(new SpecialButton(SpecialFunction.CALCULATE, controller));
+        valueButtonPanel.add(opButtons[3]);
         this.add(valueButtonPanel);
     }
     /*
@@ -67,9 +71,8 @@ public class CalculatorFrame extends JFrame {
         specialButtonPanel.setBounds(140, 440, 200, 30);
         specialButtonPanel.setLayout(new FlowLayout());
         specialButtonPanel.setBackground(Color.DARK_GRAY);
-        specialButtonPanel.add(new DecimalButton(controller));
         specialButtonPanel.add(new JButton("DEL"));
-        specialButtonPanel.add(new ClearButton(controller));
+        specialButtonPanel.add(new SpecialButton(SpecialFunction.CLEAR, controller));
         this.add(specialButtonPanel);
     }
 

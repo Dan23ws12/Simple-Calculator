@@ -7,10 +7,10 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class OperatorButton extends JButton implements ActionListener {
+public class OperationButton extends JButton implements ActionListener {
     private final Operation op;
     private final CalculatorController controller;
-    public OperatorButton(Operation op, CalculatorController controller){
+    public OperationButton(Operation op, CalculatorController controller){
         super(op.getSymbol());
         this.controller = controller;
         this.op = op;
