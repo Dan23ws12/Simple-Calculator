@@ -29,6 +29,10 @@ public class Operation implements Expression{
         return null;
     }
 
+    /*
+    * Returns a string symbol representing an operation.
+    * e.g. if argument is 1, Addition symbol is "1 +"
+    * */
     public String getSymbol(){
         String symbolString;
         if (arguments.isEmpty()){
@@ -41,12 +45,20 @@ public class Operation implements Expression{
         return symbolString;
     }
 
+    /**
+     * Returns the Value object containing the value that is the evaluation of the expression
+     * E.g. If arguments are 2 and 2, Multiplication returns Value object containing 4.0
+     * */
     @Override
     public Expression evaluate() throws InvalidExpressionException {
         Double val = evaluateFunction(evaluateArguments());
         return new Value(val);
     }
 
+    /*
+    * This function performs the calculation on the values from the arguments of this expression.
+    * Only is called when expression is valid
+    * */
     protected Double evaluateFunction(ArrayList<Double> ignoredArr){
         return 0.0;
     }
@@ -91,17 +103,16 @@ public class Operation implements Expression{
     * adds an argument to the list of arguments if list isn't already full
     * */
     public void addArgument(Expression arg){
-        if (arguments.size() < numNeededArgs){
-            this.arguments.add(arg);
-        }
+        this.arguments.add(arg);
     }
     /*
-    * removes the argument at the given index
-    * does nothing if index is less than zero or greater than or equal to array size
+    * removes the last argument in argument array
+    * does nothing if argument array is empty
     * */
-    public void removeArgument(int index) {
-        if ( (index >= 0) && (index < arguments.size())) {
-            arguments.remove(index);
+    public Expression removeLastArgument() {
+        if (!arguments.isEmpty()) {
+            return arguments.remove(arguments.size() - 1);
         }
+        return null;
     }
 }

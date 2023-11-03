@@ -3,6 +3,7 @@ package UI;
 import Controller.CalculatorController;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 /*
@@ -10,30 +11,24 @@ import java.awt.event.ActionListener;
 * like calculate, delete, decimal, clear
 * */
 public class SpecialButton extends JButton implements ActionListener {
-    private final SpecialFunction function;
+
     private final CalculatorController controller;
-    public SpecialButton(SpecialFunction function, CalculatorController controller){
-        this.function = function;
+    public SpecialButton(CalculatorController controller){
         this.controller = controller;
         this.addActionListener(this);
+        this.setPreferredSize(new Dimension(60, 30));
     }
+
+    public CalculatorController getController(){
+        return controller;
+    }
+
+    /*
+    * */
     @Override
-    public void actionPerformed(ActionEvent e) {
-        switch (function){
-            case DECIMAL:
-                controller.addDecimal();
-                break;
-            case CLEAR:
-                controller.clear();
-                break;
+    public void actionPerformed(ActionEvent e){
 
-            case CALCULATE:
-                controller.calculate();
-                break;
-
-            case DELETE:
-                controller.delete();
-                break;
-        }
     }
+
+
 }

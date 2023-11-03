@@ -10,10 +10,10 @@ import java.awt.*;
 * It contains the TextField that hold the output and the panels containing the buttons that serve as
 * input
 * */
-public class CalculatorFrame extends JFrame {
+public class CalculatorView extends JFrame {
     private final OutputTextField output;
     private final CalculatorController controller;
-    public CalculatorFrame(CalculatorController controller){
+    public CalculatorView(CalculatorController controller){
         this.controller = controller;
         output = new OutputTextField();
         this.setResizable(false);
@@ -57,9 +57,9 @@ public class CalculatorFrame extends JFrame {
             valueButtonPanel.add(opButtons[i]);
         }
         valueButtonPanel.setBackground(Color.DARK_GRAY);
-        valueButtonPanel.add(new SpecialButton(SpecialFunction.DECIMAL, controller));
+        valueButtonPanel.add(new CalculateButton(controller));
         valueButtonPanel.add(new NumberButton(0, controller));
-        valueButtonPanel.add(new SpecialButton(SpecialFunction.CALCULATE, controller));
+        valueButtonPanel.add(new DecimalButton(controller));
         valueButtonPanel.add(opButtons[3]);
         this.add(valueButtonPanel);
     }
@@ -71,13 +71,13 @@ public class CalculatorFrame extends JFrame {
         specialButtonPanel.setBounds(140, 440, 200, 30);
         specialButtonPanel.setLayout(new FlowLayout());
         specialButtonPanel.setBackground(Color.DARK_GRAY);
-        specialButtonPanel.add(new JButton("DEL"));
-        specialButtonPanel.add(new SpecialButton(SpecialFunction.CLEAR, controller));
+        specialButtonPanel.add(new DeleteButton(controller));
+        specialButtonPanel.add(new ClearButton(controller));
         this.add(specialButtonPanel);
     }
 
-    public void setOutput(Expression e, String st){
-        output.setOutput(e, st);
+    public void displayExpression(Expression e, String numString, boolean isDecimalNum){
+        output.setOutput(e, numString, isDecimalNum);
     }
 
     public  void displayError(Exception e){

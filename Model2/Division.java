@@ -14,7 +14,7 @@ public class Division extends Operation{
 
     @Override
     public Expression evaluate() throws InvalidExpressionException {
-        return new Value(this.evaluationFunction(super.evaluateArguments()));
+        return new Value(this.evaluationFunction(this.evaluateArguments()));
     }
 
     @Override
